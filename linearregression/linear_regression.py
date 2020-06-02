@@ -59,5 +59,17 @@ class LinearRegressionWithSGD:
         self.b_hat = b_hat
         return self
 
+    @timer
+    def predict(self, X):
+        try: 
+            self.b_hat # object has been fitted
+        except NameError: 
+            print("Object not fitted, no b_hat values")
+            return np.empty((0, 0))
+        sample_cnt = X.shape[0]
+        y_hat = np.hstack([np.ones(sample_cnt)[:, np.newaxis], X]) @ \
+                     self.b_hat[:, np.newaxis]
+        return y_hat
+
 if __name__ == '__main__':
     pass
