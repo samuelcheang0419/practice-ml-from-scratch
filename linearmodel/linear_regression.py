@@ -1,8 +1,7 @@
 import numpy as np
 import random
-from ..utility import timer
 
-class LinearRegressionWithSGD: 
+class LinearRegression: 
     def __init__(self, alpha, convergence_se_threshold, 
             consecutive_se_thresh_cnt, max_iter, seed = None): 
         self.alpha = alpha # learning rate
@@ -12,7 +11,6 @@ class LinearRegressionWithSGD:
         self.max_iter = max_iter 
         self.seed = seed
 
-    @timer
     def fit(self, X, y): 
         random.seed(self.seed) # self.seed=None means use system time
 
@@ -59,7 +57,6 @@ class LinearRegressionWithSGD:
         self.b_hat = b_hat
         return self
 
-    @timer
     def predict(self, X):
         try: 
             self.b_hat # object has been fitted
