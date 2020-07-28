@@ -46,11 +46,13 @@ class CollaborativeFiltering:
             new_theta_hats, new_x_hats = self.theta_hats.copy(), self.x_hats.copy()
             for user in range(self.n_users):
                 item_js = r[user, :]
-                del_J_del_theta_i = np.mean(diff[user, item_js][:, np.newaxis] * self.x_hats[item_js, :], axis = 0)
+                del_J_del_theta_i = np.mean(diff[user, item_js][:, np.newaxis] * 
+                                            self.x_hats[item_js, :], axis = 0)
                 new_theta_hats[user] -= alpha * del_J_del_theta_i
             for item in range(self.n_items):
                 user_js = r[:, item]
-                del_J_del_x_i = np.mean(diff[user_js, item][:, np.newaxis] * self.theta_hats[user_js, :], axis = 0)
+                del_J_del_x_i = np.mean(diff[user_js, item][:, np.newaxis] * 
+                                        self.theta_hats[user_js, :], axis = 0)
                 new_x_hats[item] -= alpha * del_J_del_x_i
             self.x_hats = new_x_hats
             self.theta_hats = new_theta_hats
@@ -59,4 +61,5 @@ class CollaborativeFiltering:
         return self
     
     def predict(self, data): # data in form user_id | item_id
-        return np.array([self.theta_hats[int(user)].T @ self.x_hats[int(item)] for user, item in data])
+        return np.array([self.theta_hats[int(user)].T @ self.x_hats[int(item)] 
+                        for user, item in data])
